@@ -4,11 +4,15 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.0.0",
+    "ethereumjs-util": "^5.1.5",
+    "left-pad": "^1.2.0",
+    "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
     "reactstrap": "^5.0.0-beta.2",
-    "web3": "^1.0.0-beta.30"
+    "web3": "^1.0.0-beta.30",
+    "web3-utils": "^1.0.0-beta.33"
   },
   "scripts": {
     "start": "react-scripts start",
