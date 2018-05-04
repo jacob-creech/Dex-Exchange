@@ -28,15 +28,15 @@ const tokenCreationEvent = coinSmith.TokenCreated()
 
 const ercTokenABI = web3.eth.contract([{"constant":true,"inputs":[],"name":"creator","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowed","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"description","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"url","type":"string"}],"name":"setLogoURL","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"logoURL","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_description","type":"string"},{"name":"_logoURL","type":"string"},{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_totalSupply","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_owner","type":"address"},{"indexed":true,"name":"_spender","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"creator","type":"address"},{"indexed":false,"name":"supply","type":"uint256"}],"name":"Created","type":"event"}])
 
-const exchangeABI = web3.eth.contract([{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"bytes32"}],"name":"_orders","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_amount","type":"uint256"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"},{"name":"_amount","type":"uint256"}],"name":"depositToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"_tokens","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_v","type":"uint8"},{"name":"_r","type":"bytes32"},{"name":"_s","type":"bytes32"},{"name":"_user","type":"address"},{"name":"_tradeHash","type":"bytes32"}],"name":"verifySignature","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":true,"inputs":[{"name":"_user","type":"address"},{"name":"_orderHash","type":"bytes32"}],"name":"getOrderFills","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"feeAccount","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"feeAccount_","type":"address"}],"name":"changeFeeAccount","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"bytes32"}],"name":"_orderFills","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getNextNonceCheck","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_tokenBuy","type":"address"},{"name":"_amountBuy","type":"uint256"},{"name":"_tokenSell","type":"address"},{"name":"_amountSell","type":"uint256"},{"name":"_nonce","type":"uint256"},{"name":"_user","type":"address"},{"name":"_v","type":"uint8"},{"name":"_r","type":"bytes32"},{"name":"_s","type":"bytes32"},{"name":"_amount","type":"uint256"},{"name":"_withdrawFlag","type":"bool"}],"name":"trade","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"feeTake_","type":"uint256"}],"name":"changeFeeTake","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_token","type":"address"},{"name":"_user","type":"address"}],"name":"getTokens","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"admin_","type":"address"}],"name":"changeAdmin","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_tokenBuy","type":"address"},{"name":"_amountBuy","type":"uint256"},{"name":"_tokenSell","type":"address"},{"name":"_amountSell","type":"uint256"},{"name":"_nonce","type":"uint256"}],"name":"createOrder","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_tokenBuy","type":"address"},{"name":"_amountBuy","type":"uint256"},{"name":"_tokenSell","type":"address"},{"name":"_amountSell","type":"uint256"},{"name":"_nonce","type":"uint256"},{"name":"_v","type":"uint8"},{"name":"_r","type":"bytes32"},{"name":"_s","type":"bytes32"}],"name":"cancelOrder","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"},{"name":"_amount","type":"uint256"}],"name":"withdrawToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"feeTake","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_orderOwner","type":"address"},{"name":"_orderHash","type":"bytes32"}],"name":"getOrders","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[{"name":"_token","type":"address"},{"name":"_user","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"admin","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_admin","type":"address"},{"name":"_feeAccount","type":"address"},{"name":"_feeTake","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"tokenBuy","type":"address"},{"indexed":false,"name":"amountBuy","type":"uint256"},{"indexed":false,"name":"tokenSell","type":"address"},{"indexed":false,"name":"amountSell","type":"uint256"},{"indexed":false,"name":"nonce","type":"uint256"},{"indexed":false,"name":"user","type":"address"}],"name":"Order","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"tokenGet","type":"address"},{"indexed":false,"name":"amountGet","type":"uint256"},{"indexed":false,"name":"tokenGive","type":"address"},{"indexed":false,"name":"amountGive","type":"uint256"},{"indexed":false,"name":"nonce","type":"uint256"},{"indexed":false,"name":"user","type":"address"},{"indexed":false,"name":"v","type":"uint8"},{"indexed":false,"name":"r","type":"bytes32"},{"indexed":false,"name":"s","type":"bytes32"}],"name":"Cancel","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"tokenGet","type":"address"},{"indexed":false,"name":"amountGet","type":"uint256"},{"indexed":false,"name":"tokenGive","type":"address"},{"indexed":false,"name":"amountGive","type":"uint256"},{"indexed":false,"name":"get","type":"address"},{"indexed":false,"name":"give","type":"address"}],"name":"Trade","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"user","type":"address"},{"indexed":false,"name":"amount","type":"uint256"},{"indexed":false,"name":"balance","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"user","type":"address"},{"indexed":false,"name":"amount","type":"uint256"},{"indexed":false,"name":"balance","type":"uint256"}],"name":"Withdraw","type":"event"}])
+const exchangeABI = web3.eth.contract([{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"bytes32"}],"name":"_orders","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_amount","type":"uint256"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"},{"name":"_amount","type":"uint256"}],"name":"depositToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"_tokens","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_tokenBuy","type":"address"},{"name":"_amountBuy","type":"uint256"},{"name":"_tokenSell","type":"address"},{"name":"_amountSell","type":"uint256"},{"name":"_nonce","type":"uint256"},{"name":"_tokenDeposited","type":"address"},{"name":"_amountDeposited","type":"uint256"}],"name":"createOrder","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[{"name":"_v","type":"uint8"},{"name":"_r","type":"bytes32"},{"name":"_s","type":"bytes32"},{"name":"_user","type":"address"},{"name":"_tradeHash","type":"bytes32"}],"name":"verifySignature","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":true,"inputs":[{"name":"_user","type":"address"},{"name":"_orderHash","type":"bytes32"}],"name":"getOrderFills","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"feeAccount","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"feeAccount_","type":"address"}],"name":"changeFeeAccount","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"bytes32"}],"name":"_orderFills","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getNextNonceCheck","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_tokenBuy","type":"address"},{"name":"_amountBuy","type":"uint256"},{"name":"_tokenSell","type":"address"},{"name":"_amountSell","type":"uint256"},{"name":"_nonce","type":"uint256"},{"name":"_user","type":"address"},{"name":"_v","type":"uint8"},{"name":"_r","type":"bytes32"},{"name":"_s","type":"bytes32"},{"name":"_amount","type":"uint256"},{"name":"_withdrawFlag","type":"bool"}],"name":"trade","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"feeTake_","type":"uint256"}],"name":"changeFeeTake","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_token","type":"address"},{"name":"_user","type":"address"}],"name":"getTokens","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"admin_","type":"address"}],"name":"changeAdmin","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_tokenBuy","type":"address"},{"name":"_amountBuy","type":"uint256"},{"name":"_tokenSell","type":"address"},{"name":"_amountSell","type":"uint256"},{"name":"_nonce","type":"uint256"},{"name":"_v","type":"uint8"},{"name":"_r","type":"bytes32"},{"name":"_s","type":"bytes32"}],"name":"cancelOrder","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"},{"name":"_amount","type":"uint256"}],"name":"withdrawToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"feeTake","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_orderOwner","type":"address"},{"name":"_orderHash","type":"bytes32"}],"name":"getOrders","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[{"name":"_token","type":"address"},{"name":"_user","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"admin","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_admin","type":"address"},{"name":"_feeAccount","type":"address"},{"name":"_feeTake","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"tokenBuy","type":"address"},{"indexed":false,"name":"amountBuy","type":"uint256"},{"indexed":false,"name":"tokenSell","type":"address"},{"indexed":false,"name":"amountSell","type":"uint256"},{"indexed":false,"name":"nonce","type":"uint256"},{"indexed":false,"name":"user","type":"address"}],"name":"Order","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"tokenGet","type":"address"},{"indexed":false,"name":"amountGet","type":"uint256"},{"indexed":false,"name":"tokenGive","type":"address"},{"indexed":false,"name":"amountGive","type":"uint256"},{"indexed":false,"name":"nonce","type":"uint256"},{"indexed":false,"name":"user","type":"address"},{"indexed":false,"name":"v","type":"uint8"},{"indexed":false,"name":"r","type":"bytes32"},{"indexed":false,"name":"s","type":"bytes32"}],"name":"Cancel","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"tokenGet","type":"address"},{"indexed":false,"name":"amountGet","type":"uint256"},{"indexed":false,"name":"tokenGive","type":"address"},{"indexed":false,"name":"amountGive","type":"uint256"},{"indexed":false,"name":"get","type":"address"},{"indexed":false,"name":"give","type":"address"}],"name":"Trade","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"user","type":"address"},{"indexed":false,"name":"amount","type":"uint256"},{"indexed":false,"name":"balance","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"token","type":"address"},{"indexed":false,"name":"user","type":"address"},{"indexed":false,"name":"amount","type":"uint256"},{"indexed":false,"name":"balance","type":"uint256"}],"name":"Withdraw","type":"event"}])
 
 const testABI = web3.eth.contract([{"constant":true,"inputs":[{"name":"tokenBuy","type":"address"},{"name":"amountBuy","type":"uint256"},{"name":"tokenSell","type":"address"},{"name":"amountSell","type":"uint256"},{"name":"nonce","type":"uint256"},{"name":"owner","type":"address"}],"name":"testPrefixHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tokenBuy","type":"address"},{"name":"amountBuy","type":"uint256"},{"name":"tokenSell","type":"address"},{"name":"amountSell","type":"uint256"},{"name":"nonce","type":"uint256"},{"name":"v","type":"uint8"},{"name":"r","type":"bytes32"},{"name":"s","type":"bytes32"}],"name":"testHashing","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tradeValues","type":"uint256[8]"},{"name":"tradeAddresses","type":"address[4]"},{"name":"v","type":"uint8[2]"},{"name":"r","type":"bytes32[2]"},{"name":"s","type":"bytes32[2]"}],"name":"testTradeHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tradeValues","type":"uint256[8]"},{"name":"tradeAddresses","type":"address[4]"},{"name":"v","type":"uint8[2]"},{"name":"r","type":"bytes32[2]"},{"name":"s","type":"bytes32[2]"}],"name":"testOrder","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tokenBuy","type":"address"},{"name":"amountBuy","type":"uint256"},{"name":"tokenSell","type":"address"},{"name":"amountSell","type":"uint256"},{"name":"nonce","type":"uint256"},{"name":"owner","type":"address"}],"name":"testHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tradeValues","type":"uint256[8]"},{"name":"tradeAddresses","type":"address[4]"},{"name":"v","type":"uint8[2]"},{"name":"r","type":"bytes32[2]"},{"name":"s","type":"bytes32[2]"}],"name":"testSaltedTradeHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tradeValues","type":"uint256[8]"},{"name":"tradeAddresses","type":"address[4]"},{"name":"v","type":"uint8[2]"},{"name":"r","type":"bytes32[2]"},{"name":"s","type":"bytes32[2]"}],"name":"orderHashTest","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tradeValues","type":"uint256[8]"},{"name":"tradeAddresses","type":"address[4]"},{"name":"v","type":"uint8[2]"},{"name":"r","type":"bytes32[2]"},{"name":"s","type":"bytes32[2]"}],"name":"testTrade","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}])
 
-const exchange = exchangeABI.at('0x0423b9e8302316f5bb62694d280369a84931c5ba')
+const exchange = exchangeABI.at('0x9a1136d076e73857b246cc6f44634675a6c1dc58')
 
 const test = testABI.at('0x8e254816db29a274955be976a8115eb38897edfb')
 
-const exchangeAddress = '0x0423b9e8302316f5bb62694d280369a84931c5ba'
+const exchangeAddress = '0x9a1136d076e73857b246cc6f44634675a6c1dc58'
 //const exchangeAddress = '0xd0fb3435a2b892f0c3b16839a256ab937c30afbe'
 
 const depositEvent = exchange.Deposit()
@@ -231,6 +231,162 @@ class App extends Component {
           </div>
         </form>
 
+    const newTradeSection = 
+        <form className='pure-form' onSubmit={this.sendTradeOrder.bind(this)}>
+          <div>
+            <Label>Trade</Label>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>Token Buy Address</Label>
+              <input
+                onChange={this.setNewTradeForm.bind(this)}
+                className="input" type="text" name="tokenBuyAddress" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>Token Buy amount</Label>
+              <input
+                onChange={this.setNewTradeForm.bind(this)}
+                className="input" type="text" name="tokenBuyAmount" placeholder="10"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>Token Sell Address</Label>
+              <input
+                onChange={this.setNewTradeForm.bind(this)}
+                className="input" type="text" name="tokenSellAddress" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>Token Sell Amount</Label>
+              <input
+                onChange={this.setNewTradeForm.bind(this)}
+                className="input" type="text" name="tokenSellAmount" placeholder="1"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>Nonce</Label>
+              <input
+                onChange={this.setNewTradeForm.bind(this)}
+                className="input" type="text" name="nonce" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>Order Created by</Label>
+              <input
+                onChange={this.setNewTradeForm.bind(this)}
+                className="input" type="text" name="user" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>v</Label>
+              <input
+                onChange={this.setNewTradeForm.bind(this)}
+                className="input" type="text" name="v" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>r</Label>
+              <input
+                onChange={this.setNewTradeForm.bind(this)}
+                className="input" type="text" name="r" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>s</Label>
+              <input
+                onChange={this.setNewTradeForm.bind(this)}
+                className="input" type="text" name="s" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>Amount</Label>
+              <input
+                onChange={this.setNewTradeForm.bind(this)}
+                className="input" type="text" name="amount" placeholder="10000"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>Withdraw flag (true/false)</Label>
+              <input
+                onChange={this.setNewTradeForm.bind(this)}
+                className="input" type="text" name="withdrawFlag" placeholder="true"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Button type='submit' className="btn is-link" color="primary"> Execute Trade </Button>
+            </div>
+          </div>
+        </form>
+
+    const newOrderForm =
+      <form className='pure-form' onSubmit={this.createOrder.bind(this)}>
+       <div>
+            <Label>Create Order</Label>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>Token Buy Address </Label>
+              <input
+                onChange={this.setOrderForm.bind(this)}
+                className="input" type="text" name="tokenBuy" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className='field'>
+            <div className='control'>
+              <Label className='label'>Amount buy </Label>
+              <input className='input' onChange={this.setOrderForm.bind(this)} type="number" name="amountBuy" placeholder='1000'/>
+            </div>
+          </div>
+          <div className='field'>
+            <div className='control'>
+              <Label className='label'>Token Sell Address </Label>
+              <input className='input' onChange={this.setOrderForm.bind(this)} type="text" name="tokenSell" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className='field'>
+            <div className='control'>
+              <Label className='label'>Amount Sell </Label>
+              <input className='input' onChange={this.setOrderForm.bind(this)} type="number" name="amountSell" placeholder="1000"/>
+            </div>
+          </div>
+           <div className='field'>
+            <div className='control'>
+              <Label className='label'>Nonce </Label>
+              <input className='input' onChange={this.setOrderForm.bind(this)} type="text" name="nonce" placeholder="1"/>
+            </div>
+          </div>
+          <div className='field'>
+            <div className='control'>
+              <Label className='label'>Token Deposit </Label>
+              <input className='input' onChange={this.setOrderForm.bind(this)} type="text" name="tokenDeposited" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className='field'>
+            <div className='control'>
+              <Label className='label'>Token Amount </Label>
+              <input className='input' onChange={this.setOrderForm.bind(this)} type="text" name="tokenAmount" placeholder="1"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Button type='submit' className="btn is-link" color="primary"> Create </Button>
+            </div>
+          </div>
+        </form>
+
     const tokenLabels = 
         <form className='pure-form' onSubmit={this.createToken.bind(this)}>
           <div className="field">
@@ -336,11 +492,11 @@ class App extends Component {
             {depositSection}
             {withdrawSection}
             {tradeSignSecion}
-            {tradeSecion}
+            {newOrderForm}
+            {newTradeSection}
             </Col>
             <Col>
             {tokenList}
-            {tradeList}
             </Col>
           </Row>
         </Container>
@@ -437,14 +593,14 @@ class App extends Component {
 
     var amountBuy = tradeSignForm.amount / tradeSignForm.price
     var amountSell = tradeSignForm.amount * tradeSignForm.price
+
     const raw = soliditySha3(
       {t: 'address', v: exchangeAddress}, 
       {t: 'address', v: tradeSignForm.tokenBuy}, 
       {t: 'uint256', v: amountBuy}, 
       {t: 'address', v: tradeSignForm.tokenSell}, 
-      {t: 'uint256', v: amountSell}, 
-      {t: 'uint256', v: 1}, 
-      {t: 'address', v: ownerAddress})
+      {t: 'uint256', v: amountSell},
+      {t: 'uint256', v: 1})
     console.log("soliditySha3: " + raw)
     const salted = this.keccak256("\x19Ethereum Signed Message:\n32", raw)
     console.log("salted: " + salted);
@@ -470,7 +626,7 @@ class App extends Component {
         vSign[raw] = v
         rSign[raw] = r
         sSign[raw] = s
-        console.log("\"" + tradeSignForm.tokenBuy + "\", " + amountBuy + ", \"" + tradeSignForm.tokenSell + "\", " + amountSell + ", 1, \"" + ownerAddress + "\", " + v + ", \"" + r + "\", \"" + s + "\"")
+        console.log("\"" + tradeSignForm.tokenBuy + "\", " + amountBuy + ", \"" + tradeSignForm.tokenSell + "\", " + amountSell + ", 1, " + v + ", \"" + r + "\", \"" + s + "\"")
       }
       else
         console.log(error)
@@ -482,6 +638,57 @@ class App extends Component {
     e.preventDefault()
 
     const { orderForm } = this.state
+
+    const raw = soliditySha3(
+      {t: 'address', v: exchangeAddress}, 
+      {t: 'address', v: orderForm.tokenBuy}, 
+      {t: 'uint256', v: orderForm.amountBuy}, 
+      {t: 'address', v: orderForm.tokenSell}, 
+      {t: 'uint256', v: orderForm.amountSell},
+      {t: 'uint256', v: orderForm.nonce})
+    console.log("soliditySha3: " + raw)
+    const salted = this.keccak256("\x19Ethereum Signed Message:\n32", raw)
+    console.log("salted: " + salted);
+    const signature = web3.eth.sign(web3.eth.coinbase, salted, (error, result) => {
+      if (!error) {
+        /*var r = result.slice(2, 66); 
+        var s = result.slice(66, 130);
+        var v = result.slice(130);*/
+        var r = result.slice(0, 66)
+        var s = '0x' + result.slice(66, 130)
+        var v = '0x' + result.slice(130, 132)
+        v = web3.toDecimal(v)
+        console.log("r: " + r)
+        console.log("s: " + s)
+        console.log("v: " + v)
+        const amountDeposited = web3.toWei(orderForm.tokenAmount);
+        if (orderForm.tokenDeposited != "0x0000000000000000000000000000000000000000") {
+          var erc20Contract = ercTokenABI.at(orderForm.tokenDeposited)
+          erc20Contract.approve(exchangeAddress, amountDeposited,
+            function(error, result) {
+              exchange.createOrder(orderForm.tokenBuy, orderForm.amountBuy, orderForm.tokenSell, orderForm.amountSell, orderForm.nonce, orderForm.tokenDeposited, amountDeposited, (error, result) => {
+                if (!error)
+                  console.log(result)
+                else
+                  console.log(error)
+              });
+          })
+        } else {
+          exchange.createOrder(orderForm.tokenBuy, orderForm.amountBuy, orderForm.tokenSell, orderForm.amountSell, orderForm.nonce, orderForm.tokenDeposited, amountDeposited,
+          {
+            from: web3.eth.coinbase,
+            value: web3.toWei(orderForm.tokenAmount)
+          }, (error, result) => {
+                if (!error)
+                  console.log(result)
+                else
+                  console.log(error)
+          });
+        }
+      }
+      else
+        console.log(error)
+    });
   }
 
   sendTradeOrder(e) {
