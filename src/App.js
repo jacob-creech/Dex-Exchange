@@ -791,6 +791,14 @@ class App extends Component {
     e.preventDefault()
 
     const { newTradeForm } = this.state
+
+    exchange.trade(newTradeForm.tokenBuyAddress, web3.toWei(newTradeForm.tokenBuyAmount), newTradeForm.tokenSellAddress, web3.toWei(newTradeForm.tokenSellAmount), 
+      newTradeForm.nonce, newTradeForm.user, newTradeForm.v, newTradeForm.r, newTradeForm.s, web3.toWei(newTradeForm.amount / 10), newTradeForm.withdrawFlag, (error, result) => {
+        if (!error)
+          console.log(result)
+        else
+          console.log(error)
+    })
   }
 
   sendTrade(e) {
