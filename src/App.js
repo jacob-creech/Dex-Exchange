@@ -32,11 +32,11 @@ const exchangeABI = web3.eth.contract([{"constant":true,"inputs":[{"name":"","ty
 
 const testABI = web3.eth.contract([{"constant":true,"inputs":[{"name":"tokenBuy","type":"address"},{"name":"amountBuy","type":"uint256"},{"name":"tokenSell","type":"address"},{"name":"amountSell","type":"uint256"},{"name":"nonce","type":"uint256"},{"name":"owner","type":"address"}],"name":"testPrefixHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tokenBuy","type":"address"},{"name":"amountBuy","type":"uint256"},{"name":"tokenSell","type":"address"},{"name":"amountSell","type":"uint256"},{"name":"nonce","type":"uint256"},{"name":"v","type":"uint8"},{"name":"r","type":"bytes32"},{"name":"s","type":"bytes32"}],"name":"testHashing","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tradeValues","type":"uint256[8]"},{"name":"tradeAddresses","type":"address[4]"},{"name":"v","type":"uint8[2]"},{"name":"r","type":"bytes32[2]"},{"name":"s","type":"bytes32[2]"}],"name":"testTradeHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tradeValues","type":"uint256[8]"},{"name":"tradeAddresses","type":"address[4]"},{"name":"v","type":"uint8[2]"},{"name":"r","type":"bytes32[2]"},{"name":"s","type":"bytes32[2]"}],"name":"testOrder","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tokenBuy","type":"address"},{"name":"amountBuy","type":"uint256"},{"name":"tokenSell","type":"address"},{"name":"amountSell","type":"uint256"},{"name":"nonce","type":"uint256"},{"name":"owner","type":"address"}],"name":"testHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tradeValues","type":"uint256[8]"},{"name":"tradeAddresses","type":"address[4]"},{"name":"v","type":"uint8[2]"},{"name":"r","type":"bytes32[2]"},{"name":"s","type":"bytes32[2]"}],"name":"testSaltedTradeHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tradeValues","type":"uint256[8]"},{"name":"tradeAddresses","type":"address[4]"},{"name":"v","type":"uint8[2]"},{"name":"r","type":"bytes32[2]"},{"name":"s","type":"bytes32[2]"}],"name":"orderHashTest","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"tradeValues","type":"uint256[8]"},{"name":"tradeAddresses","type":"address[4]"},{"name":"v","type":"uint8[2]"},{"name":"r","type":"bytes32[2]"},{"name":"s","type":"bytes32[2]"}],"name":"testTrade","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}])
 
-const exchange = exchangeABI.at('0x9a1136d076e73857b246cc6f44634675a6c1dc58')
+const exchange = exchangeABI.at('0x992db15f2e765eff1ded4f3723dff08730838667')
 
 const test = testABI.at('0x8e254816db29a274955be976a8115eb38897edfb')
 
-const exchangeAddress = '0x9a1136d076e73857b246cc6f44634675a6c1dc58'
+const exchangeAddress = '0x992db15f2e765eff1ded4f3723dff08730838667'
 //const exchangeAddress = '0xd0fb3435a2b892f0c3b16839a256ab937c30afbe'
 
 const depositEvent = exchange.Deposit()
@@ -67,6 +67,7 @@ class App extends Component {
     this.state = {
       newTradeForm: {},
       orderForm: {},
+      cancelForm: {},
       tokenForm: {},
       tokenList: {},
       tradeForm: {},
@@ -98,7 +99,7 @@ class App extends Component {
 
   render() {
 
-    const {newTradeForm, orderForm, tradeForm, tokenForm, tokensCreated, tokenBalance, depositForm, withdrawForm, tradeSignForm, orders, token2Buy, token2Sell, amount2Buy, amount2Sell, tradeAmount} = this.state
+    const {newTradeForm, orderForm, cancelForm, tradeForm, tokenForm, tokensCreated, tokenBalance, depositForm, withdrawForm, tradeSignForm, orders, token2Buy, token2Sell, amount2Buy, amount2Sell, tradeAmount} = this.state
 
     const tradeSignSecion =
         <form className='pure-form' onSubmit={this.signTrade.bind(this)}>
@@ -387,6 +388,75 @@ class App extends Component {
           </div>
         </form>
 
+    const cancelFormSection = 
+        <form className='pure-form' onSubmit={this.cancelOrder.bind(this)}>
+       <div>
+            <Label>Cancel Order</Label>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>Token Buy Address </Label>
+              <input
+                onChange={this.setCancelForm.bind(this)}
+                className="input" type="text" name="tokenBuy" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className='field'>
+            <div className='control'>
+              <Label className='label'>Amount buy </Label>
+              <input className='input' onChange={this.setCancelForm.bind(this)} type="number" name="amountBuy" placeholder='1000'/>
+            </div>
+          </div>
+          <div className='field'>
+            <div className='control'>
+              <Label className='label'>Token Sell Address </Label>
+              <input className='input' onChange={this.setCancelForm.bind(this)} type="text" name="tokenSell" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className='field'>
+            <div className='control'>
+              <Label className='label'>Amount Sell </Label>
+              <input className='input' onChange={this.setCancelForm.bind(this)} type="number" name="amountSell" placeholder="1000"/>
+            </div>
+          </div>
+           <div className='field'>
+            <div className='control'>
+              <Label className='label'>Nonce </Label>
+              <input className='input' onChange={this.setCancelForm.bind(this)} type="text" name="nonce" placeholder="1"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>v</Label>
+              <input
+                onChange={this.setCancelForm.bind(this)}
+                className="input" type="text" name="v" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>r</Label>
+              <input
+                onChange={this.setCancelForm.bind(this)}
+                className="input" type="text" name="r" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Label className='label'>s</Label>
+              <input
+                onChange={this.setCancelForm.bind(this)}
+                className="input" type="text" name="s" placeholder="0x0"/>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <Button type='submit' className="btn is-link" color="primary"> Cancel </Button>
+            </div>
+          </div>
+        </form>
+
+
     const tokenLabels = 
         <form className='pure-form' onSubmit={this.createToken.bind(this)}>
           <div className="field">
@@ -493,6 +563,7 @@ class App extends Component {
             {withdrawSection}
             {tradeSignSecion}
             {newOrderForm}
+            {cancelFormSection}
             {newTradeSection}
             </Col>
             <Col>
@@ -551,6 +622,13 @@ class App extends Component {
 
     orderForm[e.target.name] = e.target.value
     this.setState({ orderForm })
+  }
+
+  setCancelForm(e) {
+    let {cancelForm} = this.state
+
+    cancelForm[e.target.name] = e.target.value
+    this.setState({ cancelForm })
   }
 
   componentDidMount() {
@@ -642,11 +720,13 @@ class App extends Component {
     const raw = soliditySha3(
       {t: 'address', v: exchangeAddress}, 
       {t: 'address', v: orderForm.tokenBuy}, 
-      {t: 'uint256', v: orderForm.amountBuy}, 
+      {t: 'uint256', v: web3.toWei(orderForm.amountBuy)}, 
       {t: 'address', v: orderForm.tokenSell}, 
-      {t: 'uint256', v: orderForm.amountSell},
+      {t: 'uint256', v: web3.toWei(orderForm.amountSell)},
       {t: 'uint256', v: orderForm.nonce})
     console.log("soliditySha3: " + raw)
+    const newRaw = this.keccak256(exchangeAddress, orderForm.tokenBuy, web3.toWei(orderForm.amountBuy), orderForm.tokenSell, web3.toWei(orderForm.amountSell), orderForm.nonce);
+    console.log("new Raw: " + newRaw)
     const salted = this.keccak256("\x19Ethereum Signed Message:\n32", raw)
     console.log("salted: " + salted);
     const signature = web3.eth.sign(web3.eth.coinbase, salted, (error, result) => {
@@ -666,7 +746,7 @@ class App extends Component {
           var erc20Contract = ercTokenABI.at(orderForm.tokenDeposited)
           erc20Contract.approve(exchangeAddress, amountDeposited,
             function(error, result) {
-              exchange.createOrder(orderForm.tokenBuy, orderForm.amountBuy, orderForm.tokenSell, orderForm.amountSell, orderForm.nonce, orderForm.tokenDeposited, amountDeposited, (error, result) => {
+              exchange.createOrder(orderForm.tokenBuy, web3.toWei(orderForm.amountBuy), orderForm.tokenSell, web3.toWei(orderForm.amountSell), orderForm.nonce, orderForm.tokenDeposited, amountDeposited, (error, result) => {
                 if (!error)
                   console.log(result)
                 else
@@ -674,7 +754,7 @@ class App extends Component {
               });
           })
         } else {
-          exchange.createOrder(orderForm.tokenBuy, orderForm.amountBuy, orderForm.tokenSell, orderForm.amountSell, orderForm.nonce, orderForm.tokenDeposited, amountDeposited,
+          exchange.createOrder(orderForm.tokenBuy, web3.toWei(orderForm.amountBuy), orderForm.tokenSell, web3.toWei(orderForm.amountSell), orderForm.nonce, orderForm.tokenDeposited, amountDeposited,
           {
             from: web3.eth.coinbase,
             value: web3.toWei(orderForm.tokenAmount)
@@ -689,6 +769,22 @@ class App extends Component {
       else
         console.log(error)
     });
+  }
+
+  cancelOrder(e) {
+    e.preventDefault()
+
+    const { cancelForm } = this.state
+
+    console.log("\"" + cancelForm.tokenBuy + "\",\"" + cancelForm.amountBuy + "\",\"" + cancelForm.tokenSell + "\",\"" + cancelForm.amountSell + "\",\"" + cancelForm.nonce + "\",\"" + cancelForm.v + "\",\"" + cancelForm.r + "\",\"" + cancelForm.s + "\"")
+
+    exchange.cancelOrder(cancelForm.tokenBuy, web3.toWei(cancelForm.amountBuy), cancelForm.tokenSell, web3.toWei(cancelForm.amountSell), cancelForm.nonce, cancelForm.v, cancelForm.r, cancelForm.s, (error, result) => {
+      if (!error)
+        console.log(result)
+      else
+        console.log(error)
+    })
+
   }
 
   sendTradeOrder(e) {
