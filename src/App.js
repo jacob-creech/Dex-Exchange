@@ -101,137 +101,6 @@ class App extends Component {
 
     const {newTradeForm, orderForm, cancelForm, tradeForm, tokenForm, tokensCreated, tokenBalance, depositForm, withdrawForm, tradeSignForm, orders, token2Buy, token2Sell, amount2Buy, amount2Sell, tradeAmount} = this.state
 
-    const tradeSignSecion =
-        <form className='pure-form' onSubmit={this.signTrade.bind(this)}>
-          <div>
-            <Label>Sign Trade</Label>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Label className='label'>Token Address Buy</Label>
-              <input
-                onChange={this.setTradeSignForm.bind(this)}
-                className="input" type="text" name="tokenBuy" placeholder="0x0"/>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Label className='label'>Token Address Sell</Label>
-              <input
-                onChange={this.setTradeSignForm.bind(this)}
-                className="input" type="text" name="tokenSell" placeholder="0x0"/>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Label className='label'>Amount</Label>
-              <input
-                onChange={this.setTradeSignForm.bind(this)}
-                className="input" type="text" name="amount" placeholder="10000"/>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Label className='label'>Price</Label>
-              <input
-                onChange={this.setTradeSignForm.bind(this)}
-                className="input" type="text" name="price" placeholder=".01"/>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Button type='submit' className="btn is-link" color="primary"> SignTrade </Button>
-            </div>
-          </div>
-        </form>
-
-    const tradeSecion =
-        <form className='pure-form' onSubmit={this.sendTrade.bind(this)}>
-          <div>
-            <Label>Trade</Label>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Label className='label'>Order Hash</Label>
-              <input
-                onChange={this.setTradeForm.bind(this)}
-                className="input" type="text" name="orderHash" placeholder="0x0"/>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Label className='label'>Amount</Label>
-              <input
-                onChange={this.setTradeForm.bind(this)}
-                className="input" type="text" name="amount" placeholder="10"/>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Button type='submit' className="btn is-link" color="primary"> Trade </Button>
-            </div>
-          </div>
-        </form>
-
-    const depositSection =
-        <form className='pure-form' onSubmit={this.deposit.bind(this)}>
-          <div>
-            <Label>Set tokenAddress to 0x0000000000000000000000000000000000000000 to work with ether instead of tokens</Label>
-          </div>
-          <div>
-            <Label>Deposit</Label>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Label className='label'>Token Address</Label>
-              <input
-                onChange={this.setDepositForm.bind(this)}
-                className="input" type="text" name="tokenAddress" placeholder="0x0"/>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Label className='label'>Amount</Label>
-              <input
-                onChange={this.setDepositForm.bind(this)}
-                className="input" type="text" name="amount" placeholder="10000"/>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Button type='submit' className="btn is-link" color="primary"> Deposit </Button>
-            </div>
-          </div>
-        </form>
-
-    const withdrawSection = 
-        <form className='pure-form' onSubmit={this.withdraw.bind(this)}>
-          <div>
-            <Label>Withdraw</Label>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Label className='label'>Token Address</Label>
-              <input
-                onChange={this.setWithdrawForm.bind(this)}
-                className="input" type="text" name="tokenAddress" placeholder="0x0"/>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Label className='label'>Amount</Label>
-              <input
-                onChange={this.setWithdrawForm.bind(this)}
-                className="input" type="text" name="amount" placeholder="10000"/>
-            </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <Button type='submit' className="btn is-link" color="primary"> Withdraw </Button>
-            </div>
-          </div>
-        </form>
-
     const newTradeSection = 
         <form className='pure-form' onSubmit={this.sendTradeOrder.bind(this)}>
           <div>
@@ -540,9 +409,6 @@ class App extends Component {
             {tokenList}
             </Col>
             <Col>
-            {depositSection}
-            {withdrawSection}
-            {tradeSignSecion}
             {newOrderForm}
             {cancelFormSection}
             {newTradeSection}
@@ -637,59 +503,6 @@ class App extends Component {
     });
   }
 
-  signTrade(e) {
-    e.preventDefault()
-
-    const { tradeSignForm, orders, token2Buy, token2Sell, amount2Buy, amount2Sell, orderNonce, vSign, rSign, sSign, tradeAmount } = this.state
-
-    // tokenBuy, amountBuy, tokenSell, amountSell, expires, nonce, maker
-    // orderHash, amount
-
-    const ownerAddress = web3.eth.coinbase
-
-    var amountBuy = tradeSignForm.amount / tradeSignForm.price
-    var amountSell = tradeSignForm.amount * tradeSignForm.price
-
-    const raw = soliditySha3(
-      {t: 'address', v: exchangeAddress}, 
-      {t: 'address', v: tradeSignForm.tokenBuy}, 
-      {t: 'uint256', v: amountBuy}, 
-      {t: 'address', v: tradeSignForm.tokenSell}, 
-      {t: 'uint256', v: amountSell},
-      {t: 'uint256', v: 1})
-    console.log("soliditySha3: " + raw)
-    const salted = this.keccak256("\x19Ethereum Signed Message:\n32", raw)
-    console.log("salted: " + salted);
-    const signature = web3.eth.sign(ownerAddress, salted, (error, result) => {
-      if (!error) {
-        /*var r = result.slice(2, 66); 
-        var s = result.slice(66, 130);
-        var v = result.slice(130);*/
-        var r = result.slice(0, 66)
-        var s = '0x' + result.slice(66, 130)
-        var v = '0x' + result.slice(130, 132)
-        v = web3.toDecimal(v)
-        console.log("r: " + r)
-        console.log("s: " + s)
-        console.log("v: " + v)
-        orders.push(raw)
-        token2Buy[raw] = tradeSignForm.tokenBuy
-        token2Sell[raw] = tradeSignForm.tokenSell
-        amount2Buy[raw] = amountBuy
-        amount2Sell[raw] = amountSell
-        tradeAmount[raw] = tradeSignForm.price
-        orderNonce[raw] = 1
-        vSign[raw] = v
-        rSign[raw] = r
-        sSign[raw] = s
-        console.log("\"" + tradeSignForm.tokenBuy + "\", " + amountBuy + ", \"" + tradeSignForm.tokenSell + "\", " + amountSell + ", 1, " + v + ", \"" + r + "\", \"" + s + "\"")
-      }
-      else
-        console.log(error)
-    });
-
-  }
-
   createOrder(e) {
     e.preventDefault()
 
@@ -709,9 +522,6 @@ class App extends Component {
     console.log("salted: " + salted);
     const signature = web3.eth.sign(web3.eth.coinbase, salted, (error, result) => {
       if (!error) {
-        /*var r = result.slice(2, 66); 
-        var s = result.slice(66, 130);
-        var v = result.slice(130);*/
         var r = result.slice(0, 66)
         var s = '0x' + result.slice(66, 130)
         var v = '0x' + result.slice(130, 132)
@@ -773,7 +583,7 @@ class App extends Component {
     console.log(newTradeForm.tokenBuyAddress + " " + web3.toWei(newTradeForm.tokenBuyAmount) + " " + newTradeForm.tokenSellAddress + " " + web3.toWei(newTradeForm.tokenSellAmount) + " " + 
       newTradeForm.nonce + " " + newTradeForm.user + " " + newTradeForm.v + " " + newTradeForm.r + " " + newTradeForm.s + " " + web3.toWei(newTradeForm.amount));
 
-    var feeAmount = newTradeForm.amount * .002
+    var feeAmount = newTradeForm.amount * .0002
 
     var amountDeposited = web3.toWei(((newTradeForm.tokenBuyAmount * newTradeForm.amount) / newTradeForm.tokenSellAmount) + feeAmount);
 
@@ -804,52 +614,6 @@ class App extends Component {
     }
   }
 
-  sendTrade(e) {
-    e.preventDefault()
-
-    const { tradeForm, orders, token2Buy, token2Sell, amount2Buy, amount2Sell, orderNonce, vSign, rSign, sSign, tradeAmount } = this.state
-
-    //var tradeHash = this.keccak256(tradeForm.orderHash, web3.eth.coinbase, tradeForm.amount, 1);
-    var tradeHash = soliditySha3( 
-      {t: 'bytes32', v: tradeForm.orderHash},
-      {t: 'uint256', v: tradeForm.amount},
-      {t: 'address', v: web3.eth.coinbase},
-      {t: 'uint256', v: 1})
-    console.log("tradeHash: " + tradeHash)
-    var saltedTradeHash = this.keccak256("\x19Ethereum Signed Message:\n32", tradeHash);
-    /*soliditySha3(
-      {t: 'bytes32', v: "\x19Ethereum Signed Message:\n32"},
-      {t: 'bytes32', v: tradeHash})*/
-    //this.keccak256("\x19Ethereum Signed Message:\n32", tradeHash);
-    console.log("tradeHash salted: " + saltedTradeHash)
-    console.log("coinbase: " + web3.eth.coinbase)
-    const signature = web3.eth.sign(web3.eth.coinbase, saltedTradeHash, (error, result) => {
-      if (!error) {
-        var r = result.slice(0, 66)
-        var s = '0x' + result.slice(66, 130)
-        var v = '0x' + result.slice(130, 132)
-        v = web3.toDecimal(v)
-        console.log("r: " + r)
-        console.log("s: " + s)
-        console.log("v: " + v)
-
-        var tradeAddresses = [token2Buy[tradeForm.orderHash], token2Sell[tradeForm.orderHash], web3.eth.coinbase, web3.eth.coinbase];
-        var tradeValues = [amount2Buy[tradeForm.orderHash], amount2Sell[tradeForm.orderHash], parseInt(tradeForm.amount), 1, 1, 0, 0, 0];
-        var vArray = [vSign[tradeForm.orderHash], v]
-        var rArray = [rSign[tradeForm.orderHash], r]
-        var sArray = [sSign[tradeForm.orderHash], s]
-
-        exchange.trade(tradeValues, tradeAddresses, vArray, rArray, sArray, (error, result) => {
-          if (!error)
-            console.log(result)
-          else
-            console.log(error)
-        });
-      }
-    });
-
-  }
-
   keccak256(...args) {
     args = args.map(arg => {
       if (typeof arg === 'string') {
@@ -870,70 +634,6 @@ class App extends Component {
     args = args.join('')
 
     return web3.sha3(args, { encoding: 'hex' })
-  }
-
-  deposit(e) {
-    e.preventDefault()
-
-    const { depositForm } = this.state
-
-    /*exchange.balanceOf(depositForm.tokenAddress, web3.eth.coinbase,
-      function (error, result) {
-        if (!error) 
-          console.log(result);
-      })*/
-
-    var amountDeposited = web3.toWei(depositForm.amount)
-
-    if(depositForm.tokenAddress) {
-      var erc20Contract = ercTokenABI.at(depositForm.tokenAddress)
-
-      var batchTransactionForDeposit = new web3.createBatch();
-
-      // TODO: Change this to batch request
-      erc20Contract.approve(exchangeAddress, amountDeposited,
-        function(error, result) {
-          exchange.depositToken(depositForm.tokenAddress, amountDeposited, 
-            function(error, result) {
-              if(!error)
-                console.log(result)
-          })
-        })
-      
-    } else {
-      exchange.deposit({
-        from: web3.eth.coinbase,
-        value: amountDeposited
-      }, (error, result) => {
-        if (!error)
-          console.log(result)
-        else
-          console.log(error) 
-      })
-    }
-  }
-
-  withdraw(e) {
-    e.preventDefault()
-
-    const {withdrawForm} = this.state
-
-    var amountWithdrawn = web3.toWei(withdrawForm.amount)
-
-    if(withdrawForm.tokenAddress) {
-      exchange.withdrawToken(withdrawForm.tokenAddress, amountWithdrawn,
-        function(error,result) {
-          if(!error)
-            console.log(result)
-        })
-    } else {
-      exchange.withdraw(amountWithdrawn,
-        function(error, result) {
-          if(!error)
-            console.log(result)
-        })
-    }
-
   }
 
   createToken(e) {
