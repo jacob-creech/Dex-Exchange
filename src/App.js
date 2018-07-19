@@ -44,13 +44,13 @@ const testABI = web3.eth.contract([{"constant":true,"inputs":[{"name":"tokenBuy"
 
 const hashTestABI = web3.eth.contract([{"constant":true,"inputs":[{"name":"tokenBuy","type":"address"},{"name":"amountBuy","type":"uint256"},{"name":"tokenSell","type":"address"},{"name":"amountSell","type":"uint256"},{"name":"nonce","type":"uint256"},{"name":"v","type":"uint8"},{"name":"r","type":"bytes32"},{"name":"s","type":"bytes32"},{"name":"tradeHash","type":"bytes32"}],"name":"testHashing","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"}])
 
-const exchange = exchangeABI.at('0xc2bb6cc2bca975476fb5af5f9aebdf60e0f66295')
+const exchange = exchangeABI.at('0xd4d3f755a6d3b576b402724aa93afea872bc6e5a')
 
 const test = testABI.at('0x8e254816db29a274955be976a8115eb38897edfb')
 
 const hashTest = hashTestABI.at('0x69118bb198a4b458681d3effda145c6bd6462f38')
 
-const exchangeAddress = '0xc2bb6cc2bca975476fb5af5f9aebdf60e0f66295'
+const exchangeAddress = '0xd4d3f755a6d3b576b402724aa93afea872bc6e5a'
 
 const hashTestaddress = '0x69118bb198a4b458681d3effda145c6bd6462f38';
 
